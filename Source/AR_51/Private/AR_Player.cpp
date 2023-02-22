@@ -10,6 +10,7 @@
 #include "MainWidget.h"
 #include "Components/TextBlock.h"
 #include "GroundDetectionComponent.h"
+#include "FaceComponent.h"
 
 
 AAR_Player::AAR_Player()
@@ -26,6 +27,7 @@ AAR_Player::AAR_Player()
 	AutoReceiveInput = EAutoReceiveInput::Player0;
 
 	groundComp = CreateDefaultSubobject<UGroundDetectionComponent>(TEXT("Ground Detection"));
+	faceComp = CreateDefaultSubobject<UFaceComponent>(TEXT("Face Detection"));
 }
 
 void AAR_Player::BeginPlay()
@@ -35,7 +37,20 @@ void AAR_Player::BeginPlay()
 	UARBlueprintLibrary::SetEnabledXRCamera(true);
 
 	// AR 세션을 시작한다.
-	UARBlueprintLibrary::StartARSession(arSessions[0]);
+	switch (detectionType)
+	{
+	case EDetectionType::Ground:
+		UARBlueprintLibrary::StartARSession(arSessions[0]);
+		break;
+	case EDetectionType::Face:
+		UARBlueprintLibrary::StartARSession(arSessions[1]);
+		break;
+	case EDetectionType::Image:
+		UARBlueprintLibrary::StartARSession(arSessions[2]);
+		break;
+	default:
+		break;
+	}
 
 	// UI 위젯 출력한다.
 	if (mainWidget_Source != nullptr)

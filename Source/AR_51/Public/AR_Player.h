@@ -49,6 +49,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = ARSettings)
 	class UGroundDetectionComponent* groundComp;
 
+	UPROPERTY(EditAnywhere, Category = ARSettings)
+	class UFaceComponent* faceComp;
+
 	class UMainWidget* mainUI;
 
 	class APlayerController* playerCon;
