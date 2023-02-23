@@ -25,6 +25,14 @@ public:
 	class UButton* btn_left;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	class UButton* btn_right;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	class UButton* btn_GroundSession;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	class UButton* btn_FaceSession;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	class UButton* btn_ImageSession;
+	UPROPERTY(EditAnywhere)
+	class AAR_Player* player;
 
 	virtual void NativeConstruct() override;
 
@@ -36,5 +44,14 @@ private:
 
 	UFUNCTION()
 	void DecreaseNumber();
+
+	UFUNCTION()
+	void ChangeSessionGround();
+
+	UFUNCTION()
+	void ChangeSessionFace();
+
+	UFUNCTION()
+	void ChangeSessionImage();
 
 };

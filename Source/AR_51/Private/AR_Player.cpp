@@ -11,6 +11,7 @@
 #include "Components/TextBlock.h"
 #include "GroundDetectionComponent.h"
 #include "FaceComponent.h"
+#include "ImageDectectionComponent.h"
 
 
 AAR_Player::AAR_Player()
@@ -28,6 +29,7 @@ AAR_Player::AAR_Player()
 
 	groundComp = CreateDefaultSubobject<UGroundDetectionComponent>(TEXT("Ground Detection"));
 	faceComp = CreateDefaultSubobject<UFaceComponent>(TEXT("Face Detection"));
+	imageComp = CreateDefaultSubobject<UImageDectectionComponent>(TEXT("Image Detection"));
 }
 
 void AAR_Player::BeginPlay()
@@ -60,6 +62,7 @@ void AAR_Player::BeginPlay()
 		if (mainUI != nullptr)
 		{
 			mainUI->AddToViewport();
+			mainUI->player = this;
 		}
 	}
 

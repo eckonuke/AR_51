@@ -52,6 +52,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = ARSettings)
 	class UFaceComponent* faceComp;
 
+	UPROPERTY(EditAnywhere, Category = ARSettings)
+	class UImageDectectionComponent* imageComp;
+
 	class UMainWidget* mainUI;
 
 	class APlayerController* playerCon;
