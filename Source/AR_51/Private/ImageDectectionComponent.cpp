@@ -83,7 +83,7 @@ void UImageDectectionComponent::DetectImages()
 					FString friendlyName = myImage->GetFriendlyName();
 					FTransform trans = image->GetLocalToWorldTransform();
 
-					if (spawnedData.Contains(friendlyName) == false)
+					if (spawnedData.Contains(friendlyName) == false && curState == EARTrackingState::Tracking)
 					{
 						TSubclassOf<AActor> model = trackingTable[myImage];
 						AActor* spawnedModel = GetWorld()->SpawnActor<AActor>(model, trans);
@@ -91,10 +91,18 @@ void UImageDectectionComponent::DetectImages()
 						// 이름과 생성된 모델을 spawnedData 변수에 넣는다.
 						spawnedData.Add(friendlyName, spawnedModel);
 					}
-					else
+					else if(spawnedData.Contains(friendlyName) && curState == EARTrackingState::Tracking)
 					{
 						// 그 이름에 해당하는 모델링의 트랜스폼을 갱신한다.
 						spawnedData[friendlyName]->SetActorTransform(trans);
+					}
+					// 현재 생성되어 있고, 트래킹 상태는 아닐때
+					else if (spawnedData.Contains(friendlyName) && curState == EARTrackingState::NotTracking)
+					{
+						// TMap에서 제거하고, 모델링 액터도 삭제한다.
+						AActor* removeActor = spawnedData[friendlyName];
+						spawnedData.Remove(friendlyName);
+						removeActor->Destroy();
 					}
 				}
 			}
